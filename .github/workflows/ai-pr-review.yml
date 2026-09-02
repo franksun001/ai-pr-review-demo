@@ -1,49 +1,16 @@
-# Auto AI PR review for the Brown Bag demo.
-# Requires repo secret: ANTHROPIC_API_KEY
-# Docs: https://github.com/anthropics/claude-code-action
-name: AI PR Review
+# Disabled for the free CodeRabbit demo path.
+# This workflow needs secrets.ANTHROPIC_API_KEY and will fail without it.
+# To re-enable: restore the previous job and add the Anthropic secret.
+#
+# Prefer CodeRabbit GitHub App for $0 public-repo demos.
+name: AI PR Review (Anthropic — disabled)
 
 on:
-  pull_request:
-    types: [opened, synchronize, ready_for_review, reopened]
+  workflow_dispatch:
 
 jobs:
-  review:
-    if: github.event.pull_request.draft == false
+  disabled:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-      id-token: write
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: 1
-
-      - name: Claude quality review
-        uses: anthropics/claude-code-action@v1
-        with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          track_progress: true
-          prompt: |
-            REPO: ${{ github.repository }}
-            PR NUMBER: ${{ github.event.pull_request.number }}
-
-            You are reviewing a PR for a short Brown Bag demo site.
-            Read AGENTS.md first and follow it.
-
-            Focus ONLY on:
-            1. Duplicated UI or logic (especially repeated `.topic-card` markup) — suggest extracting a shared component with a concrete name and path (e.g. `src/components/TopicCard.tsx`) and list the props.
-            2. Inconsistent patterns vs the rest of the repo.
-            3. Overly complex or low-quality React/TypeScript that should be simplified.
-            4. Real logic bugs if present.
-
-            Do NOT comment on:
-            - Formatting, import order, trailing commas, or pure style nitpicks
-            - Generic praise without actionable advice
-            - Asking the author to add tests unless the PR clearly breaks behavior
-
-            Prefer inline comments on specific lines. One top-level summary is OK.
-          claude_args: |
-            --allowedTools "mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*)"
+      - name: Skipped
+        run: echo "Use CodeRabbit for free demo. Re-enable Claude Action when you have ANTHROPIC_API_KEY."

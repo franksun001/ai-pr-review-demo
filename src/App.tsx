@@ -85,8 +85,29 @@ export default function App() {
           </div>
         </section>
 
+        {/* --- duplicated card block #4 (Q&A) — intentional DRY debt for CodeRabbit demo --- */}
+        <section className="section" id="qa">
+          <h2>4. 答疑</h2>
+          <p className="section-intro">
+            现场常见问题：工具怎么选、要不要付费、能不能替代 leader review。这块卡片也是复制粘贴上来的。
+          </p>
+          <div className="topic-card">
+            <div className="topic-card__badge">答疑</div>
+            <h3 className="topic-card__title">听众会问什么</h3>
+            <p className="topic-card__body">
+              公开仓库可用 CodeRabbit 免费档演示；私有仓库和 Anthropic API 才可能收费。AI
+              做第一轮分流，高风险改动仍要人签字。
+            </p>
+            <ul className="topic-card__list">
+              <li>免费 demo：Public 仓库 + CodeRabbit</li>
+              <li>付费选项：Anthropic / Copilot / Greptile</li>
+              <li>不能替代：业务判断与合规签字</li>
+            </ul>
+          </div>
+        </section>
+
         <section className="section checklist" id="checklist">
-          <h2>4. 落地清单</h2>
+          <h2>5. 落地清单</h2>
           <ol>
             <li>先在非核心仓库装一个 AI reviewer</li>
             <li>写一份简短的 AGENTS.md，让建议贴合你们的写法</li>
