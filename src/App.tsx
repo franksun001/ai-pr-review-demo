@@ -13,104 +13,93 @@ export default function App() {
   return (
     <div className="page">
       <header className="hero">
-        <p className="eyebrow">Brown Bag · 15 minutes</p>
+        <p className="eyebrow">技术分享 · 15 分钟</p>
         <h1>AI PR Review</h1>
         <p className="lede">
-          Not a bug scanner — a first-pass reviewer that flags duplication,
-          componentization opportunities, and low-quality patterns before a human
-          looks at the PR.
+          不是单纯找 bug 的扫描器，而是 PR 的第一道质量审查：标出重复代码、组件化机会和低质量写法，再交给人看。
         </p>
         <p className="meta">
-          Demo repo · open a PR with intentional DRY violations · watch AI suggest
-          extracting a shared component
+          演示仓库 · 故意留下 DRY 问题 · 看 AI 会不会建议抽成公共组件
         </p>
       </header>
 
       <main>
         {/* --- duplicated card block #1 (Problem) --- */}
         <section className="section" id="problem">
-          <h2>1. The problem</h2>
+          <h2>1. 痛点</h2>
           <p className="section-intro">
-            Leaders spend review time on formatting, copy-paste UI, and obvious
-            structure issues — instead of business risk and product judgment.
+            Leader 的 review 时间，经常耗在格式、复制粘贴的 UI、明显的结构问题上，而不是业务风险和产品判断。
           </p>
           <div className="topic-card">
-            <div className="topic-card__badge">Pain</div>
-            <h3 className="topic-card__title">Review bandwidth</h3>
+            <div className="topic-card__badge">痛点</div>
+            <h3 className="topic-card__title">Review 带宽不够</h3>
             <p className="topic-card__body">
-              Every PR waits for a human. Many comments are &quot;you pasted this
-              three times — extract a component&quot;, not architecture or compliance.
+              每个 PR 都等人看。很多评论其实是「这段粘了三遍，抽个组件吧」，而不是架构或合规问题。
             </p>
             <ul className="topic-card__list">
-              <li>Repeated JSX across sections</li>
-              <li>Inconsistent patterns vs the rest of the repo</li>
-              <li>Nitpicks that a bot can surface first</li>
+              <li>多个区块重复同一段 JSX</li>
+              <li>和仓库其余代码的写法不一致</li>
+              <li>本可以先由 bot 指出的 nitpick</li>
             </ul>
           </div>
         </section>
 
         {/* --- duplicated card block #2 (Demo) --- */}
         <section className="section" id="demo">
-          <h2>2. What we demo</h2>
+          <h2>2. 演示什么</h2>
           <p className="section-intro">
-            This page intentionally repeats the same card layout three times. Open
-            a PR that adds a fourth copy — the AI reviewer should call out DRY.
+            本页故意把同一套卡片布局重复了三次。开一个再粘第四份的 PR，AI reviewer 应该能指出 DRY 问题。
           </p>
           <div className="topic-card">
-            <div className="topic-card__badge">Flow</div>
-            <h3 className="topic-card__title">PR → AI review</h3>
+            <div className="topic-card__badge">流程</div>
+            <h3 className="topic-card__title">PR → AI Review</h3>
             <p className="topic-card__body">
-              Push a branch, open a pull request, and let Claude Code Action (or
-              CodeRabbit / Greptile) post inline comments with concrete refactor
-              suggestions — not just &quot;LGTM&quot; or lint noise.
+              推分支、开 PR，让 Claude Code Action（或 CodeRabbit / Greptile）在行内给出具体重构建议——不只是
+              「LGTM」或 lint 噪音。
             </p>
             <ul className="topic-card__list">
-              <li>Flag duplicated UI / logic</li>
-              <li>Suggest a shared component name and file path</li>
-              <li>Skip formatting nitpicks unless they hurt readability</li>
+              <li>标出重复的 UI / 逻辑</li>
+              <li>建议组件名和文件路径</li>
+              <li>除非影响可读性，否则跳过格式 nitpick</li>
             </ul>
           </div>
         </section>
 
         {/* --- duplicated card block #3 (Limits) --- */}
         <section className="section" id="limits">
-          <h2>3. Limits</h2>
+          <h2>3. 边界</h2>
           <p className="section-intro">
-            AI review is triage, not sign-off. Especially for payment, patient data,
-            and auth — a human still owns the merge.
+            AI review 是分流，不是签字。支付、患者数据、权限相关改动，最终仍要人负责合并。
           </p>
           <div className="topic-card">
-            <div className="topic-card__badge">Boundary</div>
-            <h3 className="topic-card__title">Human still decides</h3>
+            <div className="topic-card__badge">边界</div>
+            <h3 className="topic-card__title">最终还是人决定</h3>
             <p className="topic-card__body">
-              The bot can suggest extracting a component. It cannot decide whether
-              the abstraction is worth it, whether HIPAA/PII rules apply, or whether
-              the product behavior is correct.
+              Bot 可以建议抽组件，但决定不了「值不值得抽象」、HIPAA/PII 是否适用、产品行为对不对。
             </p>
             <ul className="topic-card__list">
-              <li>Low-risk PRs: AI summary + CI may be enough to scan in 30s</li>
-              <li>High-risk PRs: human reviews AI-flagged lines + business logic</li>
-              <li>Same model writing and reviewing can share blind spots</li>
+              <li>低风险 PR：看 AI 摘要 + CI，大约 30 秒扫一眼</li>
+              <li>高风险 PR：人重点看 AI 标红处 + 业务逻辑</li>
+              <li>同一模型又写又审，容易有共同盲区</li>
             </ul>
           </div>
         </section>
 
         <section className="section checklist" id="checklist">
-          <h2>4. Adoption checklist</h2>
+          <h2>4. 落地清单</h2>
           <ol>
-            <li>Install one AI reviewer on a non-critical repo first</li>
-            <li>Write a short AGENTS.md so suggestions match your patterns</li>
-            <li>Tune the prompt: quality &amp; DRY in, style nitpicks out</li>
-            <li>Keep required CI green; keep human approval for high-risk paths</li>
-            <li>Never let the bot approve and merge its own PR</li>
+            <li>先在非核心仓库装一个 AI reviewer</li>
+            <li>写一份简短的 AGENTS.md，让建议贴合你们的写法</li>
+            <li>调 prompt：质量与 DRY 优先，格式 nitpick 关掉</li>
+            <li>CI 必须绿；高风险路径仍要人工批准</li>
+            <li>永远不要让 bot 自己 approve 并 merge 自己的 PR</li>
           </ol>
         </section>
       </main>
 
       <footer className="footer">
         <p>
-          Source: intentional duplication lives in <code>src/App.tsx</code>. See{' '}
-          <code>README.md</code> for the 15-minute demo script.
+          故意重复的代码在 <code>src/App.tsx</code>。演示步骤见 <code>README.md</code>。
         </p>
       </footer>
     </div>
