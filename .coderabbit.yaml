@@ -1,4 +1,4 @@
-# CodeRabbit config for the Brown Bag demo
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
 # https://docs.coderabbit.ai/guides/configure-coderabbit
 language: "zh-CN"
 reviews:
@@ -10,20 +10,13 @@ reviews:
   auto_review:
     enabled: true
     drafts: false
+  path_instructions:
+    - path: "src/**"
+      instructions: |
+        Focus on code quality and DRY, not formatting nitpicks.
+        If `.topic-card` markup is duplicated in App.tsx, strongly suggest extracting
+        `src/components/TopicCard.tsx` with props like badge, title, body, items.
+        Prefer concrete refactor suggestions (component name + file path + props).
+        Do NOT emphasize import order, trailing commas, or pure style nits.
 chat:
   auto_reply: true
-knowledge_base:
-  learnings:
-    scope: auto
-instructions: |
-  This is a Vite + React demo site for an AI PR review talk.
-  Focus on code quality and DRY, not formatting nitpicks.
-
-  Priority:
-  1. Duplicated `.topic-card` markup in `src/App.tsx` — strongly suggest extracting
-     `src/components/TopicCard.tsx` with props like badge, title, body, items.
-  2. Inconsistent patterns vs the rest of the repo.
-  3. Real logic bugs if any.
-
-  Do NOT emphasize import order, trailing commas, or pure style nits.
-  Prefer concrete refactor suggestions (component name + file path + props).
