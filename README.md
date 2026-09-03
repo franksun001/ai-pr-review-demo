@@ -1,57 +1,60 @@
-# AI PR Review Demo
+# PR 上的 AI Review（15 分钟分享）
 
-15-minute Brown Bag demo: **AI does quality/architecture PR review** (DRY, extract components), not just bug scanning.
+**主题：** 让每个 Pull Request 自动做第一道质量审查（重复、抽组件、低质量写法），leader 只审业务。
 
-Talk content is the website itself (`src/App.tsx`). That file **intentionally duplicates** the same card markup three times so an AI reviewer has something real to flag.
+**不是：** 推荐一个 GitHub Action、编辑器插件，或「AI 自己合代码」。
 
-Repo: https://github.com/franksun001/ai-pr-review-demo
+本页网站 = 讲稿。`src/App.tsx` 里四张卡片是故意复制粘贴的，用来演示 PR 上的 bot 会不会叫停。
 
-## Quick start
+仓库：https://github.com/franksun001/ai-pr-review-demo  
+演示 PR：https://github.com/franksun001/ai-pr-review-demo/pull/1
+
+## 本地预览
 
 ```bash
 npm install
 npm run dev
 ```
 
-## One-time setup (AI review on GitHub)
+## 已经接上的 / 不要讲成「Action」
 
-1. Open the repo → **Settings → Secrets and variables → Actions**
-2. Add secret `ANTHROPIC_API_KEY` (Anthropic API key)
-3. Optional but recommended: install the [Claude GitHub App](https://github.com/apps/claude) on this repo (see [claude-code-action](https://github.com/anthropics/claude-code-action))
-4. Workflow file: `.github/workflows/ai-pr-review.yml` (runs on every non-draft PR)
+| 东西 | 作用 |
+|------|------|
+| CodeRabbit GitHub App | PR 打开后自动质量 review（当前真正干活的） |
+| `.coderabbit.yaml` | 拧方向：盯 DRY，别 nitpick（不要写死组件名） |
+| `AGENTS.md` | 给 Cursor / CodeRabbit 的仓库约定 |
+| `.github/workflows/ci.yml` | lint + build，和 AI review 无关 |
 
-Alternative (no Anthropic key): install [CodeRabbit](https://coderabbit.ai/) or [Greptile](https://www.greptile.com/) as a GitHub App and keep the same demo PR.
+已删除付费的 Anthropic Action。没有 API Key，也不需要。
 
-## 15-minute talk script
+## 15 分钟流程（对着网站讲）
 
-| Time | What to show |
-|------|----------------|
-| 0–2 min | Problem: leaders burn review time on copy-paste UI, not business risk |
-| 2–4 min | Open this site locally / GitHub; point at three identical cards in `App.tsx` |
-| 4–10 min | **Recorded or live:** branch → add a 4th duplicated card → open PR → AI inline comments suggest `TopicCard` |
-| 10–13 min | Limits: triage ≠ sign-off; payment/patient/auth still need humans; same model write+review can blind-spot |
-| 13–15 min | Checklist in section 4 of the page + leave the repo link |
+| 时间 | 讲什么 | 投屏 |
+|------|--------|------|
+| 0–2 | Leader 的时间耗在「粘了三遍」上；编辑器 AI 帮不到他 | 本页第 1 节 |
+| 2–4 | 个人助理 ≠ 团队门禁 | 本页第 2 节 |
+| 4–10 | 打开 [PR #1](https://github.com/franksun001/ai-pr-review-demo/pull/1)，指行内评论 | GitHub PR |
+| 10–13 | 分流不是签字；autofix；自动合要 CI + 规则 | 本页第 4 节 |
+| 13–15 | 清单：明天装、怎么改、先别 auto-merge | 本页最后一节 |
 
-### Demo PR (rehearse before the talk)
+现场金句：
 
-```bash
-git checkout -b demo/more-duplication
-# Edit src/App.tsx: paste a fourth .topic-card block (e.g. "Q&A" section)
-git add src/App.tsx && git commit -m "demo: add fourth duplicated topic card"
-git push -u origin HEAD
-# Open PR on GitHub → wait for AI PR Review workflow → show inline comments
-```
+- 评论钉在「这次新粘的那张」上，判断重复看的是整份文件。
+- yaml 是拧方向；第一次没写死组件名也能抓到 DRY。
+- 改法：`@coderabbitai autofix`，或 Cursor 按 PR 建议改，不用复制评论。
 
-**Do not extract `TopicCard` until after the audience has seen the AI comments.**
+**抽共享组件要等讲完再做**，否则现场没有「重复」可指。
 
-## What this is / is not
+## 开发怎么消化 review
 
-| Is | Is not |
-|----|--------|
-| First-pass quality review (DRY, patterns) | Replacement for human merge approval |
-| Configurable via `AGENTS.md` + workflow prompt | Fully autonomous write → merge → deploy factory |
-| Useful on low-risk PRs to save leader time | Safe alone on payment / patient / auth PRs |
+1. 同意 → PR 评论区发 `@coderabbitai autofix`（或点 Autofix）
+2. 自己改 → 在 Cursor 说「按这个 PR 上 CodeRabbit 的建议抽组件」
+3. 不同意 → Resolve conversation
 
-## Stack
+## 这是 / 不是
 
-Vite + React + TypeScript (`npm create vite@latest -- --template react-ts`).
+| 是 | 不是 |
+|----|------|
+| 每个 PR 的第一道质量分流 | 替代 leader 签字 |
+| 公开仓库 + CodeRabbit 即可演示 | 必须买 Anthropic / 写 Action |
+| 低风险以后可接 auto-merge | bot 自己 Approve 自己合 |

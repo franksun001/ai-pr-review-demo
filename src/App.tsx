@@ -1,107 +1,102 @@
 /**
- * Talk landing page for the Brown Bag demo.
+ * Talk landing page — 15-minute Brown Bag.
  *
- * INTENTIONAL QUALITY DEBT (for AI PR review demo):
- * - Problem / Demo / Limits each paste nearly identical "topic card" markup.
- * - An AI reviewer should suggest extracting a shared TopicCard component.
- * Do NOT remove this duplication until after you have shown the review comments.
+ * INTENTIONAL QUALITY DEBT:
+ * - Four sections paste the same `.topic-card` markup.
+ * - Do not extract a shared component until the talk has shown the PR review.
  */
 
-import './App.css'
+import "./App.css";
 
 export default function App() {
   return (
-    <div className="page">
-      <header className="hero">
-        <p className="eyebrow">技术分享 · 15 分钟</p>
-        <h1>AI PR Review</h1>
-        <p className="lede">
-          不是单纯找 bug 的扫描器，而是 PR 的第一道质量审查：标出重复代码、组件化机会和低质量写法，再交给人看。
-        </p>
-        <p className="meta">
-          演示仓库 · 故意留下 DRY 问题 · 看 AI 会不会建议抽成公共组件
+    <div className='page'>
+      <header className='hero'>
+        <p className='eyebrow'>技术分享 · 15 分钟</p>
+        <h1>PR 上的 AI Review</h1>
+        <p className='lede'>
+          每个 Pull Request 先过一道质量审查：重复、结构、明显的坏味道。人只审业务和风险。
         </p>
       </header>
 
       <main>
-        {/* --- duplicated card block #1 (Problem) --- */}
-        <section className="section" id="problem">
-          <h2>1. 痛点</h2>
-          <p className="section-intro">
-            Leader 的 review 时间，经常耗在格式、复制粘贴的 UI、明显的结构问题上，而不是业务风险和产品判断。
-          </p>
-          <div className="topic-card">
-            <div className="topic-card__badge">痛点</div>
-            <h3 className="topic-card__title">Review 带宽不够</h3>
-            <p className="topic-card__body">
-              每个 PR 都等人看。很多评论其实是「这段粘了三遍，抽个组件吧」，而不是架构或合规问题。
+        {/* --- duplicated card block #1 --- */}
+        <section className='section' id='why'>
+          <h2>1. 为什么要做</h2>
+          <p className='section-intro'>人的 review 时间有限，不该花在「这段写了三遍」上。</p>
+          <div className='topic-card'>
+            <div className='topic-card__badge'>为什么</div>
+            <h3 className='topic-card__title'>把浅层问题挡在前面</h3>
+            <p className='topic-card__body'>
+              复制粘贴、命名混乱、和现有页面不一致——这些适合机器先标出来。人去看支付、权限、产品对不对。
             </p>
-            <ul className="topic-card__list">
-              <li>多个区块重复同一段 JSX</li>
-              <li>和仓库其余代码的写法不一致</li>
-              <li>本可以先由 bot 指出的 nitpick</li>
+            <ul className='topic-card__list'>
+              <li>重复的 UI 和逻辑</li>
+              <li>和仓库其余写法打架</li>
+              <li>一眼能看出来的低质量</li>
             </ul>
           </div>
         </section>
 
-        {/* --- duplicated card block #2 (Demo) --- */}
-        <section className="section" id="demo">
-          <h2>2. 演示什么</h2>
-          <p className="section-intro">
-            本页故意把同一套卡片布局重复了三次。开一个再粘第四份的 PR，AI reviewer 应该能指出 DRY 问题。
-          </p>
-          <div className="topic-card">
-            <div className="topic-card__badge">流程</div>
-            <h3 className="topic-card__title">PR → AI Review</h3>
-            <p className="topic-card__body">
-              推分支、开 PR，让 Claude Code Action（或 CodeRabbit / Greptile）在行内给出具体重构建议——不只是
-              「LGTM」或 lint 噪音。
+        {/* --- duplicated card block #2 --- */}
+        <section className='section' id='where'>
+          <h2>2. 放在哪一层</h2>
+          <p className='section-intro'>写代码时的助手，和挂在 PR 上的审查，不是同一件事。</p>
+          <div className='topic-card'>
+            <div className='topic-card__badge'>分层</div>
+            <h3 className='topic-card__title'>PR 是团队的检查点</h3>
+            <p className='topic-card__body'>
+              编辑器里的建议只有自己看得见。PR 上的审查每次都会跑，开 PR 的人、同事、leader
+              都能看到，也留得住。
             </p>
-            <ul className="topic-card__list">
-              <li>标出重复的 UI / 逻辑</li>
-              <li>建议组件名和文件路径</li>
-              <li>除非影响可读性，否则跳过格式 nitpick</li>
+            <ul className='topic-card__list'>
+              <li>对一次改动说话，不是对整仓空谈</li>
+              <li>结果钉在 PR 上，能回头对</li>
+              <li>和「能不能编过」的检查分开，各管一层</li>
             </ul>
           </div>
         </section>
 
-        {/* --- duplicated card block #3 (Limits) --- */}
-        <section className="section" id="limits">
-          <h2>3. 边界</h2>
-          <p className="section-intro">
-            AI review 是分流，不是签字。支付、患者数据、权限相关改动，最终仍要人负责合并。
-          </p>
-          <div className="topic-card">
-            <div className="topic-card__badge">边界</div>
-            <h3 className="topic-card__title">最终还是人决定</h3>
-            <p className="topic-card__body">
-              Bot 可以建议抽组件，但决定不了「值不值得抽象」、HIPAA/PII 是否适用、产品行为对不对。
+        {/* --- duplicated card block #3 --- */}
+        <section className='section' id='how'>
+          <h2>3. 现场怎么走</h2>
+          <p className='section-intro'>开一条带重复结构的 PR，看审查会不会指出该抽公共组件。</p>
+          <div className='topic-card'>
+            <div className='topic-card__badge'>流程</div>
+            <h3 className='topic-card__title'>改 → 开 PR → 看建议</h3>
+            <p className='topic-card__body'>
+              评论通常落在这次新改的位置上；判断「是不是又复制了一份」，靠的是同一文件里已有的结构。
             </p>
-            <ul className="topic-card__list">
-              <li>低风险 PR：看 AI 摘要 + CI，大约 30 秒扫一眼</li>
-              <li>高风险 PR：人重点看 AI 标红处 + 业务逻辑</li>
-              <li>同一模型又写又审，容易有共同盲区</li>
+            <ul className='topic-card__list'>
+              <li>看它标的是质量，还是无关紧要的格式</li>
+              <li>建议是否具体：抽什么、放哪、带哪些参数</li>
+              <li>同意就按建议改；不同意就关掉这条</li>
             </ul>
           </div>
         </section>
 
-        <section className="section checklist" id="checklist">
-          <h2>4. 落地清单</h2>
-          <ol>
-            <li>先在非核心仓库装一个 AI reviewer</li>
-            <li>写一份简短的 AGENTS.md，让建议贴合你们的写法</li>
-            <li>调 prompt：质量与 DRY 优先，格式 nitpick 关掉</li>
-            <li>CI 必须绿；高风险路径仍要人工批准</li>
-            <li>永远不要让 bot 自己 approve 并 merge 自己的 PR</li>
-          </ol>
+        {/* --- duplicated card block #4 --- */}
+        <section className='section' id='limit'>
+          <h2>4. 到哪为止</h2>
+          <p className='section-intro'>这是第一道分流，不是最后签字。</p>
+          <div className='topic-card'>
+            <div className='topic-card__badge'>边界</div>
+            <h3 className='topic-card__title'>浅的交给机器，深的留给人</h3>
+            <p className='topic-card__body'>
+              文案、样式、结构重复，可以很快扫过。涉及钱、数据和权限，必须人看。合不合并，责任也在人。
+            </p>
+            <ul className='topic-card__list'>
+              <li>能做：第一轮质量和结构</li>
+              <li>能配：检查都过了再考虑加快合并</li>
+              <li>不能替：业务对不对、该不该上线</li>
+            </ul>
+          </div>
         </section>
       </main>
 
-      <footer className="footer">
-        <p>
-          故意重复的代码在 <code>src/App.tsx</code>。演示步骤见 <code>README.md</code>。
-        </p>
+      <footer className='footer'>
+        <p>15 分钟：为什么 → 放哪一层 → 现场走一遍 → 边界。</p>
       </footer>
     </div>
-  )
+  );
 }
