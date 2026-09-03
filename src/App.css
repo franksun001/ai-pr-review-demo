@@ -92,7 +92,6 @@ body {
   color: var(--muted);
 }
 
-/* Intentionally shared by duplicated markup — extract TopicCard after the demo */
 .topic-card {
   background: var(--card);
   border: 1px solid var(--border);
