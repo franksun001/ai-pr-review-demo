@@ -2,7 +2,7 @@
  * Talk landing page — 15-minute Brown Bag.
  *
  * INTENTIONAL QUALITY DEBT:
- * - Four sections paste the same `.topic-card` markup.
+ * - Five sections paste the same `.topic-card` markup.
  * - Do not extract a shared component until the talk has shown the PR review.
  */
 
@@ -92,10 +92,28 @@ export default function App() {
             </ul>
           </div>
         </section>
+
+        {/* --- duplicated card block #5 --- */}
+        <section className='section' id='takeaway'>
+          <h2>5. 带走什么</h2>
+          <p className='section-intro'>听完之后，只需要记住三件事。</p>
+          <div className='topic-card'>
+            <div className='topic-card__badge'>带走</div>
+            <h3 className='topic-card__title'>明天就能试</h3>
+            <p className='topic-card__body'>
+              先在一个不关键的仓库上开起来。看它会不会把浅层问题标出来，再决定人还要看哪些。
+            </p>
+            <ul className='topic-card__list'>
+              <li>浅层质量可以先交给机器</li>
+              <li>业务和风险仍由人拍板</li>
+              <li>合不合并，责任不交给工具</li>
+            </ul>
+          </div>
+        </section>
       </main>
 
       <footer className='footer'>
-        <p>15 分钟：为什么 → 放哪一层 → 现场走一遍 → 边界。</p>
+        <p>15 分钟：为什么 → 放哪一层 → 现场走一遍 → 边界 → 带走。</p>
       </footer>
     </div>
   );
