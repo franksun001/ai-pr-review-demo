@@ -1,13 +1,32 @@
 /**
  * Talk landing page for the Brown Bag demo.
  *
- * INTENTIONAL QUALITY DEBT (for AI PR review demo):
- * - Problem / Demo / Limits each paste nearly identical "topic card" markup.
- * - An AI reviewer should suggest extracting a shared TopicCard component.
- * Do NOT remove this duplication until after you have shown the review comments.
+ * Topic cards share a reusable component while each section retains its own content.
  */
 
 import './App.css'
+
+type TopicCardProps = {
+  badge: string
+  title: string
+  body: string
+  items: string[]
+}
+
+function TopicCard({ badge, title, body, items }: TopicCardProps) {
+  return (
+    <div className="topic-card">
+      <div className="topic-card__badge">{badge}</div>
+      <h3 className="topic-card__title">{title}</h3>
+      <p className="topic-card__body">{body}</p>
+      <ul className="topic-card__list">
+        {items.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+    </div>
+  )
+}
 
 export default function App() {
   return (
@@ -24,86 +43,56 @@ export default function App() {
       </header>
 
       <main>
-        {/* --- duplicated card block #1 (Problem) --- */}
         <section className="section" id="problem">
           <h2>1. 痛点</h2>
           <p className="section-intro">
             Leader 的 review 时间，经常耗在格式、复制粘贴的 UI、明显的结构问题上，而不是业务风险和产品判断。
           </p>
-          <div className="topic-card">
-            <div className="topic-card__badge">痛点</div>
-            <h3 className="topic-card__title">Review 带宽不够</h3>
-            <p className="topic-card__body">
-              每个 PR 都等人看。很多评论其实是「这段粘了三遍，抽个组件吧」，而不是架构或合规问题。
-            </p>
-            <ul className="topic-card__list">
-              <li>多个区块重复同一段 JSX</li>
-              <li>和仓库其余代码的写法不一致</li>
-              <li>本可以先由 bot 指出的 nitpick</li>
-            </ul>
-          </div>
+          <TopicCard
+            badge="痛点"
+            title="Review 带宽不够"
+            body="每个 PR 都等人看。很多评论其实是「这段粘了三遍，抽个组件吧」，而不是架构或合规问题。"
+            items={['多个区块重复同一段 JSX', '和仓库其余代码的写法不一致', '本可以先由 bot 指出的 nitpick']}
+          />
         </section>
 
-        {/* --- duplicated card block #2 (Demo) --- */}
         <section className="section" id="demo">
           <h2>2. 演示什么</h2>
           <p className="section-intro">
             本页故意把同一套卡片布局重复了三次。开一个再粘第四份的 PR，AI reviewer 应该能指出 DRY 问题。
           </p>
-          <div className="topic-card">
-            <div className="topic-card__badge">流程</div>
-            <h3 className="topic-card__title">PR → AI Review</h3>
-            <p className="topic-card__body">
-              推分支、开 PR，让 Claude Code Action（或 CodeRabbit / Greptile）在行内给出具体重构建议——不只是
-              「LGTM」或 lint 噪音。
-            </p>
-            <ul className="topic-card__list">
-              <li>标出重复的 UI / 逻辑</li>
-              <li>建议组件名和文件路径</li>
-              <li>除非影响可读性，否则跳过格式 nitpick</li>
-            </ul>
-          </div>
+          <TopicCard
+            badge="流程"
+            title="PR → AI Review"
+            body="推分支、开 PR，让 Claude Code Action（或 CodeRabbit / Greptile）在行内给出具体重构建议——不只是「LGTM」或 lint 噪音。"
+            items={['标出重复的 UI / 逻辑', '建议组件名和文件路径', '除非影响可读性，否则跳过格式 nitpick']}
+          />
         </section>
 
-        {/* --- duplicated card block #3 (Limits) --- */}
         <section className="section" id="limits">
           <h2>3. 边界</h2>
           <p className="section-intro">
             AI review 是分流，不是签字。支付、患者数据、权限相关改动，最终仍要人负责合并。
           </p>
-          <div className="topic-card">
-            <div className="topic-card__badge">边界</div>
-            <h3 className="topic-card__title">最终还是人决定</h3>
-            <p className="topic-card__body">
-              Bot 可以建议抽组件，但决定不了「值不值得抽象」、HIPAA/PII 是否适用、产品行为对不对。
-            </p>
-            <ul className="topic-card__list">
-              <li>低风险 PR：看 AI 摘要 + CI，大约 30 秒扫一眼</li>
-              <li>高风险 PR：人重点看 AI 标红处 + 业务逻辑</li>
-              <li>同一模型又写又审，容易有共同盲区</li>
-            </ul>
-          </div>
+          <TopicCard
+            badge="边界"
+            title="最终还是人决定"
+            body="Bot 可以建议抽组件，但决定不了「值不值得抽象」、HIPAA/PII 是否适用、产品行为对不对。"
+            items={['低风险 PR：看 AI 摘要 + CI，大约 30 秒扫一眼', '高风险 PR：人重点看 AI 标红处 + 业务逻辑', '同一模型又写又审，容易有共同盲区']}
+          />
         </section>
 
-        {/* --- duplicated card block #4 (Q&A) — intentional DRY debt for CodeRabbit demo --- */}
         <section className="section" id="qa">
           <h2>4. 答疑</h2>
           <p className="section-intro">
             现场常见问题：工具怎么选、要不要付费、能不能替代 leader review。这块卡片也是复制粘贴上来的。
           </p>
-          <div className="topic-card">
-            <div className="topic-card__badge">答疑</div>
-            <h3 className="topic-card__title">听众会问什么</h3>
-            <p className="topic-card__body">
-              公开仓库可用 CodeRabbit 免费档演示；私有仓库和 Anthropic API 才可能收费。AI
-              做第一轮分流，高风险改动仍要人签字。
-            </p>
-            <ul className="topic-card__list">
-              <li>免费 demo：Public 仓库 + CodeRabbit</li>
-              <li>付费选项：Anthropic / Copilot / Greptile</li>
-              <li>不能替代：业务判断与合规签字</li>
-            </ul>
-          </div>
+          <TopicCard
+            badge="答疑"
+            title="听众会问什么"
+            body="公开仓库可用 CodeRabbit 免费档演示；私有仓库和 Anthropic API 才可能收费。AI 做第一轮分流，高风险改动仍要人签字。"
+            items={['免费 demo：Public 仓库 + CodeRabbit', '付费选项：Anthropic / Copilot / Greptile', '不能替代：业务判断与合规签字']}
+          />
         </section>
 
         <section className="section checklist" id="checklist">
