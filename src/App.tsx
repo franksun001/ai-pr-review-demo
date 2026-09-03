@@ -56,6 +56,24 @@ export default function App() {
             </ul>
           </div>
         </section>
+        {/* --- duplicated card block #3 --- */}
+        <section className='section' id='where'>
+          <h2>3. 放在哪一层(2)</h2>
+          <p className='section-intro'>写代码时的助手，和挂在 PR 上的审查，不是同一件事。</p>
+          <div className='topic-card'>
+            <div className='topic-card__badge'>分层</div>
+            <h3 className='topic-card__title'>PR 是团队的检查点</h3>
+            <p className='topic-card__body'>
+              编辑器里的建议只有自己看得见。PR 上的审查每次都会跑，开 PR 的人、同事、leader
+              都能看到，也留得住。
+            </p>
+            <ul className='topic-card__list'>
+              <li>对一次改动说话，不是对整仓空谈</li>
+              <li>结果钉在 PR 上，能回头对</li>
+              <li>和「能不能编过」的检查分开，各管一层</li>
+            </ul>
+          </div>
+        </section>
       </main>
 
       <footer className='footer'>
