@@ -46,11 +46,11 @@ export default function App() {
           heading='3. 项目里放什么'
           intro='不写配置也能审查。加入文件是为了统一语言和审查重点。'
           badge='配置'
-          cardTitle='仓库根目录的两份文件'
-          body='.coderabbit.yaml 控制审查行为：语言、是否自动审、关注可维护性与重复实现、减少格式类评论。AGENTS.md 描述本仓库的写法约定，审查和自动修复时可以一并参考。'
+          cardTitle='根目录配置与分层规则'
+          body='.coderabbit.yaml 必须放在仓库根目录，用于控制审查行为：语言、是否自动审、关注可维护性与重复实现、减少格式类评论。AGENTS.md 可放在任意目录；其中的规则只适用于该目录及其所有子目录，审查和自动修复时可以一并参考。'
           items={[
-            ".coderabbit.yaml：审查范围与风格",
-            "AGENTS.md：技术栈、目录习惯、禁止事项",
+            ".coderabbit.yaml：必须位于仓库根目录，定义审查范围与风格",
+            "AGENTS.md：可位于任意目录，约束该目录及其子目录的技术栈、习惯与禁止事项",
             ".github/workflows/ci.yml：lint 与 build，与 AI 评论相互独立",
           ]}
         />
