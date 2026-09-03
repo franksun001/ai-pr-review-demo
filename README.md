@@ -15,12 +15,13 @@ npm run dev
 
 ## One-time setup (AI review on GitHub)
 
-1. Open the repo → **Settings → Secrets and variables → Actions**
-2. Add secret `ANTHROPIC_API_KEY` (Anthropic API key)
-3. Optional but recommended: install the [Claude GitHub App](https://github.com/apps/claude) on this repo (see [claude-code-action](https://github.com/anthropics/claude-code-action))
-4. Workflow file: `.github/workflows/ai-pr-review.yml` (runs on every non-draft PR)
+1. Install the [CodeRabbit GitHub App](https://coderabbit.ai/) on this repo.
+2. CodeRabbit uses `.coderabbit.yaml` and automatically reviews non-draft PRs.
+3. Open the demo PR and show CodeRabbit's inline comments.
 
-Alternative (no Anthropic key): install [CodeRabbit](https://coderabbit.ai/) or [Greptile](https://www.greptile.com/) as a GitHub App and keep the same demo PR.
+### Optional Claude recovery path
+
+Use this only when restoring the Anthropic-based workflow instead of CodeRabbit: restore the Claude Action job in `.github/workflows/ai-pr-review.yml`, then add the `ANTHROPIC_API_KEY` secret under **Settings → Secrets and variables → Actions**. You may also install the [Claude GitHub App](https://github.com/apps/claude) (see [claude-code-action](https://github.com/anthropics/claude-code-action)).
 
 ## 15-minute talk script
 
@@ -39,7 +40,7 @@ git checkout -b demo/more-duplication
 # Edit src/App.tsx: paste a fourth .topic-card block (e.g. "Q&A" section)
 git add src/App.tsx && git commit -m "demo: add fourth duplicated topic card"
 git push -u origin HEAD
-# Open PR on GitHub → wait for AI PR Review workflow → show inline comments
+# Open PR on GitHub → wait for CodeRabbit review → show inline comments
 ```
 
 **Do not extract `TopicCard` until after the audience has seen the AI comments.**
@@ -49,7 +50,7 @@ git push -u origin HEAD
 | Is | Is not |
 |----|--------|
 | First-pass quality review (DRY, patterns) | Replacement for human merge approval |
-| Configurable via `AGENTS.md` + workflow prompt | Fully autonomous write → merge → deploy factory |
+| Configurable via `AGENTS.md` + `.coderabbit.yaml` | Fully autonomous write → merge → deploy factory |
 | Useful on low-risk PRs to save leader time | Safe alone on payment / patient / auth PRs |
 
 ## Stack
