@@ -46,11 +46,11 @@ export default function App() {
           heading='3. 项目里放什么'
           intro='不写配置也能审查。加入文件是为了统一语言和审查重点。'
           badge='配置'
-          cardTitle='根目录配置与分层规则'
-          body='.coderabbit.yaml 必须放在仓库根目录，用于控制审查行为：语言、是否自动审、关注可维护性与重复实现、减少格式类评论。AGENTS.md 可放在任意目录；其中的规则只适用于该目录及其所有子目录，审查和自动修复时可以一并参考。'
+          cardTitle='根目录配置与目录范围规则'
+          body='.coderabbit.yaml 必须保留在仓库根目录，用于控制审查行为：语言、是否自动审、关注可维护性与重复实现、减少格式类评论。AGENTS.md 可被发现于任意目录；其中的规则只适用于所在目录及其所有子目录，审查和自动修复时可以一并参考。'
           items={[
-            ".coderabbit.yaml：必须位于仓库根目录，定义审查范围与风格",
-            "AGENTS.md：可位于任意目录，约束该目录及其子目录的技术栈、习惯与禁止事项",
+            ".coderabbit.yaml：必须保留在仓库根目录，定义审查范围与风格",
+            "AGENTS.md：可位于任意目录；只约束所在目录及其子目录的技术栈、习惯与禁止事项",
             ".github/workflows/ci.yml：lint 与 build，与 AI 评论相互独立",
           ]}
         />
@@ -58,7 +58,7 @@ export default function App() {
         <TopicSection
           id='pr'
           heading='4. 开 PR 之后'
-          intro='对已授权仓库创建非 Draft 的 Pull Request，审查会自动开始。'
+          intro='默认 auto-review 配置下，对已授权仓库创建面向默认分支的非 Draft Pull Request，审查会自动开始；reviews.auto_review 也可按目标分支、标签、作者或标题禁用或筛选审查。'
           badge='审查'
           cardTitle='Conversation 里会出现什么'
           body='数分钟内，coderabbitai 会发布摘要，并在 Files changed 中对具体行留言。摘要说明改了什么；带严重级别的行内评论才是需要处理的建议。页面下方的 CI 表示编译是否通过，与 AI 建议是否被采纳无关。'
@@ -72,14 +72,14 @@ export default function App() {
         <TopicSection
           id='commands'
           heading='5. 评论里常用指令'
-          intro='在 PR 的 Comment 框中 @coderabbitai，即可触发后续动作。'
+          intro='在 PR 的 Comment 框中 @你的 CodeRabbit 安装显示的服务账号句柄（例如 @coderabbitai），即可触发后续动作。'
           badge='指令'
           cardTitle='审查之后怎么处理'
-          body='同意建议并希望由它改代码：在 Conversation 底部输入 @coderabbitai autofix，点击 Comment。不要选择 Close with comment。完成后刷新，当前分支会多一次提交。只处理某一条时，在该条回复里发送同一指令。'
+          body='同意建议并希望由它改代码：在 Conversation 底部输入 @实际服务账号句柄 autofix，点击 Comment。只处理某一条时，在该条回复里发送同一指令。只有成功处理符合条件的未解决审查线程时，当前分支才会新增提交；遇到冲突、限流或没有适用线程时可能不会产生提交，提交命令后请查看回复或状态。'
           items={[
-            "@coderabbitai review：再次审查最新提交",
-            "@coderabbitai autofix：按未解决的建议提交修复",
-            "Resolve conversation：不采纳该条建议",
+            "@实际服务账号句柄 review：再次审查最新提交",
+            "@实际服务账号句柄 autofix：处理未解决的审查建议",
+            "Resolve conversation：修复或决定不处理后，将该讨论标记为已解决；在回复中说明理由",
           ]}
         />
       </main>
