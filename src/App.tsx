@@ -5,45 +5,87 @@ export default function App() {
   return (
     <div className='page'>
       <header className='hero'>
-        <p className='eyebrow'>技术分享 · 15 分钟</p>
-        <h1>PR 上的 AI Review</h1>
+        <p className='eyebrow'>技术分享</p>
+        <h1>CodeRabbit</h1>
         <p className='lede'>
-          每个 Pull Request 先过一道质量审查：重复、结构、明显的坏味道。人只审业务和风险。
+          GitHub Pull Request 上的 AI 代码审查。开 PR 后自动评论，全组可见，并可按指令提交修复。
         </p>
       </header>
 
       <main>
         <TopicSection
-          id='why'
-          heading='1. 为什么要做'
-          intro='人的 review 时间有限，不该花在「这段写了三遍」上。'
-          badge='为什么'
-          cardTitle='把浅层问题挡在前面'
-          body='复制粘贴、命名混乱、和现有页面不一致——这些适合机器先标出来。人去看支付、权限、产品对不对。'
-          items={['重复的 UI 和逻辑', '和仓库其余写法打架', '一眼能看出来的低质量']}
+          id='what'
+          heading='1. 它是什么'
+          intro='CodeRabbit 是独立的 AI Code Review 产品，以 GitHub App 的形式接到仓库上。'
+          badge='产品'
+          cardTitle='用途与优势'
+          body='每次有人打开或更新 Pull Request，它会阅读改动并留下审查意见：重复代码、可维护性、潜在缺陷。审查结果写在 PR 上，作者、同事和 reviewer 都能看到。'
+          items={[
+            "相对编辑器内的 AI：结果留在 GitHub，不依赖个人本地环境",
+            "相对 lint / CI：能提结构与质量建议，例如抽取公共组件",
+            "公开仓库可免费用于演示；私有仓库完整能力通常需要试用或付费",
+          ]}
         />
+
         <TopicSection
-          id='where'
-          heading='2. 放在哪一层'
-          intro='写代码时的助手，和挂在 PR 上的审查，不是同一件事。'
-          badge='分层'
-          cardTitle='PR 是团队的检查点'
-          body='编辑器里的建议只有自己看得见。PR 上的审查每次都会跑，开 PR 的人、同事、leader 都能看到，也留得住。'
-          items={['对一次改动说话，不是对整仓空谈', '结果钉在 PR 上，能回头对', '和「能不能编过」的检查分开，各管一层']}
+          id='install'
+          heading='2. 如何接入仓库'
+          intro='在 GitHub 上安装 CodeRabbit App，并授权目标仓库。'
+          badge='接入'
+          cardTitle='Settings → GitHub Apps'
+          body='打开 github.com/apps/coderabbitai，选择 Install 或 Configure。账号选个人或组织，Repository access 勾选具体仓库后保存。也可从仓库 Settings → Integrations / GitHub Apps 进入同一配置。'
+          items={[
+            "只授权需要审查的仓库即可，不必勾选全部",
+            "授权完成后，到 app.coderabbit.ai 确认仓库已出现在列表中",
+            "与仓库 Secrets、GitHub Actions 工作流不是同一套配置",
+          ]}
         />
+
         <TopicSection
-          id='where-2'
-          heading='3. 放在哪一层(2)'
-          intro='写代码时的助手，和挂在 PR 上的审查，不是同一件事。'
-          badge='分层'
-          cardTitle='PR 是团队的检查点'
-          body='编辑器里的建议只有自己看得见。PR 上的审查每次都会跑，开 PR 的人、同事、leader 都能看到，也留得住。'
-          items={['对一次改动说话，不是对整仓空谈', '结果钉在 PR 上，能回头对', '和「能不能编过」的检查分开，各管一层']}
+          id='config'
+          heading='3. 项目里放什么'
+          intro='不写配置也能审查。加入文件是为了统一语言和审查重点。'
+          badge='配置'
+          cardTitle='仓库根目录的两份文件'
+          body='.coderabbit.yaml 控制审查行为：语言、是否自动审、关注可维护性与重复实现、减少格式类评论。AGENTS.md 描述本仓库的写法约定，审查和自动修复时可以一并参考。'
+          items={[
+            ".coderabbit.yaml：审查范围与风格",
+            "AGENTS.md：技术栈、目录习惯、禁止事项",
+            ".github/workflows/ci.yml：lint 与 build，与 AI 评论相互独立",
+          ]}
+        />
+
+        <TopicSection
+          id='pr'
+          heading='4. 开 PR 之后'
+          intro='对已授权仓库创建非 Draft 的 Pull Request，审查会自动开始。'
+          badge='审查'
+          cardTitle='Conversation 里会出现什么'
+          body='数分钟内，coderabbitai 会发布摘要，并在 Files changed 中对具体行留言。摘要说明改了什么；带严重级别的行内评论才是需要处理的建议。页面下方的 CI 表示编译是否通过，与 AI 建议是否被采纳无关。'
+          items={[
+            "Walkthrough：变更说明",
+            "行内评论：问题位置、原因、建议改法",
+            "Pre-merge checks：CodeRabbit 自带的附加打分，默认不阻止合并",
+          ]}
+        />
+
+        <TopicSection
+          id='commands'
+          heading='5. 评论里常用指令'
+          intro='在 PR 的 Comment 框中 @coderabbitai，即可触发后续动作。'
+          badge='指令'
+          cardTitle='审查之后怎么处理'
+          body='同意建议并希望由它改代码：在 Conversation 底部输入 @coderabbitai autofix，点击 Comment。不要选择 Close with comment。完成后刷新，当前分支会多一次提交。只处理某一条时，在该条回复里发送同一指令。'
+          items={[
+            "@coderabbitai review：再次审查最新提交",
+            "@coderabbitai autofix：按未解决的建议提交修复",
+            "Resolve conversation：不采纳该条建议",
+          ]}
         />
       </main>
 
       <footer className='footer'>
-        <p>15 分钟：为什么 → 放哪一层 → 现场走一遍 → 边界。</p>
+        <p>产品说明 → 接入 → 配置 → 开 PR → 评论指令。</p>
       </footer>
     </div>
   );
