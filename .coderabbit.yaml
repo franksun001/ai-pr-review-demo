@@ -1,5 +1,4 @@
 # yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
-# https://docs.coderabbit.ai/guides/configure-coderabbit
 language: "zh-CN"
 reviews:
   profile: "assertive"
@@ -13,10 +12,10 @@ reviews:
   path_instructions:
     - path: "src/**"
       instructions: |
-        Focus on code quality and DRY, not formatting nitpicks.
-        If `.topic-card` markup is duplicated in App.tsx, strongly suggest extracting
-        `src/components/TopicCard.tsx` with props like badge, title, body, items.
-        Prefer concrete refactor suggestions (component name + file path + props).
-        Do NOT emphasize import order, trailing commas, or pure style nits.
+        Review for maintainability and DRY, not formatting.
+        If the same UI structure is copy-pasted 2+ times, suggest extracting
+        a shared React component. Name a concrete file path and props.
+        Skip import order, trailing commas, and pure style nits.
+        Do not praise without an actionable suggestion.
 chat:
   auto_reply: true

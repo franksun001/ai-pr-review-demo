@@ -2,21 +2,19 @@
 
 ## Purpose
 
-This repository is a **15-minute Brown Bag demo** for AI PR review.
-The talk page lives in `src/App.tsx`. Prefer small, surgical changes.
+15-minute Brown Bag: **PR 上的 AI 质量 Review**（团队门禁，不是编辑器里的个人助手）。
+Talk page is `src/App.tsx`. Prefer small, surgical changes.
 
-## Quality expectations (what AI reviewers should enforce)
+## Quality expectations
 
-1. **DRY for UI** — If the same card / section layout appears 2+ times, extract a shared React component (e.g. `src/components/TopicCard.tsx`) instead of pasting markup.
-2. **Concrete suggestions** — Name the component, proposed file path, and which props to pass. Do not only say "consider refactoring".
-3. **Skip nitpicks** — Do not comment on import order, trailing commas, or pure formatting unless readability is hurt.
-4. **Match existing style** — Functional React components, TypeScript, CSS modules/classes already used in `App.css`.
+1. **DRY for UI** — Same card / section layout 2+ times → extract a shared component. Suggest a file path and props; do not only say "consider refactoring".
+2. **Skip nitpicks** — No import order, trailing commas, or formatting unless readability is hurt.
+3. **Match existing style** — Functional React, TypeScript, classes already used in `App.css`.
 
 ## Intentional debt (demo only)
 
-`src/App.tsx` currently duplicates the same `.topic-card` block three times on purpose.
-When reviewing a PR that **adds more duplication**, call it out.
-When reviewing a PR that **extracts `TopicCard`**, confirm the extraction is complete and props are clear.
+`src/App.tsx` duplicates `.topic-card` markup on purpose so PR review can flag it.
+Do not extract the shared component until the talk has shown the review comments.
 
 ## Commands
 
